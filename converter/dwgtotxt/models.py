@@ -1,3 +1,10 @@
 from django.db import models
 
-# Create your models here.
+
+class Rawdata(models.Model):
+    data = models.TextField()
+
+
+class Outputdata(models.Model):
+    data = models.TextField()
+

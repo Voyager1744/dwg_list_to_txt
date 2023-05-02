@@ -1,5 +1,9 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def index(request):
-    return HttpResponse('<div>Hello dwg!</div>')
+    if request.method == 'POST':
+        input_data = request.POST.get('input_data', '')
+        output_data = input_data.upper()
+        context = {'output_data': output_data}
+        return render(request, 'dwgtotxt.html', context)
