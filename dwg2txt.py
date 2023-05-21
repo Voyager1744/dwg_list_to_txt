@@ -8,10 +8,7 @@ START = 100
 
 
 def read_file(file_path):
-    data_list = []
-    for line in open(file_path):
-        data_list.append(line)
-    return data_list
+    return list([line for line in open(file_path)])
 
 
 def write_file(new_path_file, replaces_list):
