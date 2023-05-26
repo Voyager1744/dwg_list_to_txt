@@ -49,10 +49,10 @@
 </head>
 <body>
     <div class="container">
-        <h2>Конвертер текста</h2>
+        <h2>Конвертер списка из AutoCAD в нумерованый список</h2>
         <form action="{% url 'convert_text' %}" method="POST">
             {% csrf_token %}
-            <label for="start_point">Введите начальную точку:</label>
+            <label for="start_point">Введите номер начальной точки:</label>
             <input type="number" class="input_field" name="start_point" id="start_point" placeholder="Введите начальную точку">
             <textarea name="text_input" placeholder="Введите текст"></textarea>
             <button type="submit">Конвертировать</button>
