@@ -9,7 +9,11 @@ def index(request):
 def convert_text(request):
     if request.method == 'POST':
         text_input = request.POST.get('text_input').split('\n')
-        start_point = int(request.POST.get('start_point'))
+        start_point = request.POST.get('start_point')
+        if start_point.isdigit():
+            start_point = int(start_point)
+        else:
+            start_point = 100
         converted_text = replace_data(text_input, start_point)
         context = {
             'converted_text': converted_text,
