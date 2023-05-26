@@ -7,4 +7,3 @@ class Rawdata(models.Model):
 
 class Outputdata(models.Model):
     data = models.TextField()
-

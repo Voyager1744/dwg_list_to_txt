@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Конвертер текста</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 600px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input_field {
+            width: 100%;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            resize: none;
+            padding: 5px;
+        }
+
+        button {
+            display: block;
+            margin: 0 auto;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Конвертер текста</h2>
+        <form action="{% url 'convert_text' %}" method="POST">
+            {% csrf_token %}
+            <label for="start_point">Введите начальную точку:</label>
+            <input type="number" class="input_field" name="start_point" id="start_point" placeholder="Введите начальную точку">
+            <textarea name="text_input" placeholder="Введите текст"></textarea>
+            <button type="submit">Конвертировать</button>
+        </form>
+    </div>
+</body>
+</html>
