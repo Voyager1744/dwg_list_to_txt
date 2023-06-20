@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Программа для преобразования данных</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f2f2f2;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .field-container {
+      margin-bottom: 10px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"],
+    textarea {
+      width: 400px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    .textarea-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    button:active {
+      background-color: #3e8e41;
+    }
+
+    #outputData {
+      width: 400px;
+      height: 300px;
+      background-color: #fff;
+      color: #333;
+    }
+    #inputData {
+      width: 500px;
+      height: 300px;
+      background-color: #fff;
+      color: #333;
+    }
+
+    .copy-button {
+      padding: 8px 15px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .copy-button:hover {
+      background-color: #555;
+    }
+
+    .copy-button:active {
+      background-color: #222;
+    }
+  </style>
+</head>
+<body>
+  <h1>Программа для преобразования данных</h1>
+
+  <div class="container">
+    <div class="field-container">
+      <label for="startPoint">Начальная точка:</label>
+      <input type="number" id="startPoint" name="startPoint" value="100" />
+    </div>
+
+    <div class="textarea-container">
+      <div>
+        <div>
+         <label for="inputData">Исходные данные:</label>
+        </div>
+
+        <textarea id="inputData" name="inputData" rows="30"></textarea>
+      </div>
+      <div>
+        <div>
+          <label for="outputData">Результат:</label>
+        </div>
+
+        <textarea id="outputData" name="outputData" rows="30" readonly></textarea>
+        <button class="copy-button" onclick="copyToClipboard()">Скопировать</button>
+      </div>
+    </div>
+
+    <button onclick="convertData()">Преобразовать</button>
+  </div>
+
+  <script>
+    function convertData() {
+      const startPointInput = document.getElementById('startPoint');
+      const inputDataTextarea = document.getElementById('inputData');
+      const outputDataTextarea = document.getElementById('outputData');
+
+      const start_point = parseInt(startPointInput.value);
+      const data_list = decodeURIComponent(inputDataTextarea.value).split('\n');
+
+      const replaces_list = replace_data(data_list, start_point);
+      outputDataTextarea.value = replaces_list.join('\n');
+    }
+
+    function replace_data(data_list, start_point) {
+      const replaces_list = [];
+      let i = start_point - 1;
+
+      for (const line of data_list) {
+        if (line.startsWith(' ')) {
+          let new_line = line.replace('          в точке  X=', ' ').replace('  Y=', ' ');
+          new_line = new_line.split(/\s+/);
+          i++;
+          const s = `${i}\t${new_line[1]}\t${new_line[2]}`;
+          replaces_list.push(s);
+        }
+      }
+
+      return replaces_list;
+    }
+
+    function copyToClipboard() {
+      const outputDataTextarea = document.getElementById('outputData');
+      outputDataTextarea.select();
+      document.execCommand('copy');
+      alert('Результат скопирован в буфер обмена.');
+    }
+  </script>
+</body>
+</html>
