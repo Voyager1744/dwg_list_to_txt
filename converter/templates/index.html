@@ -56,6 +56,7 @@
       border-radius: 4px;
       cursor: pointer;
       font-size: 14px;
+        margin-left: -50px;
     }
 
     button:hover {
@@ -87,6 +88,8 @@
       border-radius: 4px;
       cursor: pointer;
       font-size: 14px;
+      margin-top: 20px;
+      margin-left: 50px;
     }
 
     .copy-button:hover {
@@ -113,14 +116,21 @@
          <label for="inputData">Исходные данные:</label>
         </div>
 
-        <textarea id="inputData" name="inputData" rows="30"></textarea>
+        <textarea id="inputData" name="inputData" rows="30" oninput="countRows('inputData')"></textarea>
+        <div>
+          <span id="inputDataCount">Строк: 0</span>
+        </div>
+
       </div>
       <div>
         <div>
           <label for="outputData">Результат:</label>
         </div>
 
-        <textarea id="outputData" name="outputData" rows="30" readonly></textarea>
+        <textarea id="outputData" name="outputData" rows="30" readonly oninput="countRows('outputData')"></textarea>
+        <div>
+          <span id="outputDataCount">Строк: 0</span>
+        </div>
         <button class="copy-button" onclick="copyToClipboard()">Скопировать</button>
       </div>
     </div>
@@ -129,6 +139,13 @@
   </div>
 
   <script>
+
+    function countRows(elementId) {
+      const textarea = document.getElementById(elementId);
+      const countElement = document.getElementById(`${elementId}Count`);
+      const lineCount = textarea.value.split('\n').length;
+      countElement.textContent = `Строк: ${lineCount}`;
+    }
     function convertData() {
       const startPointInput = document.getElementById('startPoint');
       const inputDataTextarea = document.getElementById('inputData');
